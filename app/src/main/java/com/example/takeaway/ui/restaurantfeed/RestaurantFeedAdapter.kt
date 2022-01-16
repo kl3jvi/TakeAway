@@ -24,7 +24,7 @@ class RestaurantFeedAdapter :
     override fun onBindViewHolder(holder: RestaurantFeedViewHolder, position: Int) {
         val restaurantFeed = getItem(position)
         holder.apply {
-            bind(createOnClickListener(restaurantFeed.id), restaurantFeed)
+            bind(createOnClickListener(restaurantFeed.name), restaurantFeed)
         }
     }
 
@@ -40,10 +40,12 @@ class RestaurantFeedAdapter :
         }
     }
 
-    private fun createOnClickListener(id: Int): View.OnClickListener {
+    private fun createOnClickListener(name: String): View.OnClickListener {
         return View.OnClickListener {
             val direction =
-                RestaurantFeedFragmentDirections.actionRestaurantFeedFragmentToRestaurantDetailsFragment(id)
+                RestaurantFeedFragmentDirections.actionRestaurantFeedFragmentToRestaurantDetailsFragment(
+                    restaurantName = name
+                )
             it.findNavController().navigate(direction)
         }
     }
@@ -52,7 +54,7 @@ class RestaurantFeedAdapter :
 private class PlantDiffCallback : DiffUtil.ItemCallback<RestaurantFeed>() {
 
     override fun areItemsTheSame(oldItem: RestaurantFeed, newItem: RestaurantFeed): Boolean {
-        return oldItem.id == newItem.id
+        return oldItem.name == newItem.name
     }
 
     override fun areContentsTheSame(oldItem: RestaurantFeed, newItem: RestaurantFeed): Boolean {
