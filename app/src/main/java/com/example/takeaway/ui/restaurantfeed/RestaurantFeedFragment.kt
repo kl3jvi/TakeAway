@@ -4,12 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.RecyclerView
+import com.example.takeaway.R
 import com.example.takeaway.data.model.RestaurantFeed
 import com.example.takeaway.databinding.FragmentRestaurantFeedBinding
 import com.google.android.material.snackbar.Snackbar
@@ -33,10 +36,12 @@ class RestaurantFeedFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        initSortAdapter()
+
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 launch {
-                    restaurantFeedViewModel.restaurantList.collect {
+                    restaurantFeedViewModel.restaurantFeedList.collect {
                         showRestaurantFeed(binding.restaurantFeedRecycler, it)
                     }
                 }
@@ -55,8 +60,39 @@ class RestaurantFeedFragment : Fragment() {
 
     private fun showRestaurantFeed(recyclerView: RecyclerView, list: List<RestaurantFeed>) {
         if (recyclerView.adapter == null) {
-            recyclerView.adapter = RestaurantFeedAdapter()
+            recyclerView.adapter = RestaurantFeedAdapter(restaurantFeedViewModel)
         }
         (recyclerView.adapter as RestaurantFeedAdapter).submitList(list)
+    }
+
+    private fun initSortAdapter() {
+        val spinner = binding.feedSortSpinner
+
+        ArrayAdapter.createFromResource(
+            requireContext(),
+            R.array.sort_array,
+            android.R.layout.simple_spinner_dropdown_item
+        ).also {
+            it.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            spinner.adapter = it
+        }
+
+        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                when (p2) {
+                    0 -> {
+                        restaurantFeedViewModel.sortByBestMatch()
+                    }
+                    7 -> {
+                        restaurantFeedViewModel.sortByMinCost()
+                    }
+                }
+            }
+
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+
+            }
+        }
+
     }
 }

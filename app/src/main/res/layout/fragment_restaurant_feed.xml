@@ -3,9 +3,26 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <FrameLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/orange"
+            android:title="@string/app_name"
+            app:titleTextColor="@color/white">
+
+            <Spinner
+                android:id="@+id/feed_sort_spinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:backgroundTint="@color/white"
+                android:spinnerMode="dropdown" />
+        </Toolbar>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/restaurant_feed_recycler"
@@ -16,6 +33,6 @@
             app:spanCount="2"
             tools:listitem="@layout/list_item_restaurant" />
 
-    </FrameLayout>
+    </LinearLayout>
 
 </layout>

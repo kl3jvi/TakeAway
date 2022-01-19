@@ -7,10 +7,11 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.takeaway.R
 import com.example.takeaway.data.model.RestaurantFeed
 import com.example.takeaway.databinding.ListItemRestaurantBinding
 
-class RestaurantFeedAdapter :
+class RestaurantFeedAdapter(private val viewModel: RestaurantFeedViewModel) :
     ListAdapter<RestaurantFeed, RestaurantFeedAdapter.RestaurantFeedViewHolder>(PlantDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RestaurantFeedViewHolder {
@@ -22,25 +23,38 @@ class RestaurantFeedAdapter :
     }
 
     override fun onBindViewHolder(holder: RestaurantFeedViewHolder, position: Int) {
-        val restaurantFeed = getItem(position)
+        val restaurant = getItem(position)
         holder.apply {
-            bind(createOnClickListener(restaurantFeed.name), restaurantFeed)
+            bind(onItemClickListener(restaurant.name), restaurant, viewModel)
         }
     }
 
     class RestaurantFeedViewHolder(
         private val binding: ListItemRestaurantBinding
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(listener: View.OnClickListener, item: RestaurantFeed) {
+        fun bind(
+            listener: View.OnClickListener,
+            item: RestaurantFeed,
+            viewModel: RestaurantFeedViewModel
+        ) {
             binding.apply {
-                clickListener = listener
-                restaurantFeed = item
+                onItemClickListener = listener
+                restaurant = item
                 executePendingBindings()
+            }
+
+            binding.restaurantFavorite.setOnClickListener {
+                viewModel.setFavorite(item)
+                if (item.favorite) {
+                    binding.restaurantFavorite.setImageResource(R.drawable.outline_favorite_24)
+                } else {
+                    binding.restaurantFavorite.setImageResource(R.drawable.outline_favorite_border_24)
+                }
             }
         }
     }
 
-    private fun createOnClickListener(name: String): View.OnClickListener {
+    private fun onItemClickListener(name: String): View.OnClickListener {
         return View.OnClickListener {
             val direction =
                 RestaurantFeedFragmentDirections.actionRestaurantFeedFragmentToRestaurantDetailsFragment(
@@ -54,7 +68,7 @@ class RestaurantFeedAdapter :
 private class PlantDiffCallback : DiffUtil.ItemCallback<RestaurantFeed>() {
 
     override fun areItemsTheSame(oldItem: RestaurantFeed, newItem: RestaurantFeed): Boolean {
-        return oldItem.name == newItem.name
+        return oldItem.id == newItem.id
     }
 
     override fun areContentsTheSame(oldItem: RestaurantFeed, newItem: RestaurantFeed): Boolean {

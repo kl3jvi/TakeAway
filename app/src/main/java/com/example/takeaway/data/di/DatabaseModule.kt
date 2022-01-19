@@ -2,7 +2,7 @@ package com.example.takeaway.data.di
 
 import android.app.Application
 import com.example.takeaway.data.db.AppDatabase
-import com.example.takeaway.data.db.RestaurantFeedDao
+import com.example.takeaway.data.db.RestaurantDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -17,7 +17,7 @@ class DatabaseModule {
     fun provideDb(app: Application) = AppDatabase.getDbInstance(app)
 
     @Provides
-    fun provideRestaurantFeedDao(db: AppDatabase): RestaurantFeedDao {
-        return db.RestaurantsDao()
+    fun provideRestaurantFeedDao(db: AppDatabase): RestaurantDao {
+        return db.RestaurantDao()
     }
 }

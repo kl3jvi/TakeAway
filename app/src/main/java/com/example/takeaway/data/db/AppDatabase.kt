@@ -1,18 +1,20 @@
 package com.example.takeaway.data.db
+
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.takeaway.data.model.RestaurantFeed
+import com.example.takeaway.data.model.SortingValues
 
 @Database(
     entities = [RestaurantFeed::class],
-    version = 3,
+    version = 6,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
 
-    abstract fun RestaurantsDao(): RestaurantFeedDao
+    abstract fun RestaurantDao(): RestaurantDao
 
     companion object {
         @Volatile

@@ -1,5 +1,14 @@
 <resources>
     <string name="app_name">TakeAway</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string-array name="sort_array">
+        <item>Best match</item>
+        <item>Newest</item>
+        <item>Reviews</item>
+        <item>Distance</item>
+        <item>Popularity</item>
+        <item>Product price</item>
+        <item>Delivery costs</item>
+        <item>Min. order amount</item>
+    </string-array>
 </resources>

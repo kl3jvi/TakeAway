@@ -1,18 +1,18 @@
 package com.example.takeaway.data.model
 
+import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import androidx.room.TypeConverters
-import com.example.takeaway.data.db.Converters
-import com.google.gson.annotations.SerializedName
 
 @Entity(tableName = "restaurantFeed")
-@TypeConverters(Converters::class)
 data class RestaurantFeed(
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
+    val id: Int,
     val name: String,
     val status: String,
-    val sortingValues: SortingValues
+    @field:Embedded(prefix = "sorting_")
+    val sortingValues: SortingValues,
+    var favorite: Boolean
 )
 
 data class SortingValues(

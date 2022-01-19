@@ -1,14 +1,14 @@
 package com.example.takeaway.data.restaurant
 
 import com.example.takeaway.data.api.Result
-import com.example.takeaway.data.db.RestaurantFeedDao
+import com.example.takeaway.data.db.RestaurantDao
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class RestaurantDetailsRepository @Inject constructor(
-    private val dao: RestaurantFeedDao,
+    private val dao: RestaurantDao,
     private val provideIoDispatcher: CoroutineDispatcher
 ) {
 

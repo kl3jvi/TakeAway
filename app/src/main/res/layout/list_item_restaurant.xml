@@ -1,44 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/purple_200"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
-            name="clickListener"
+            name="onItemClickListener"
             type="android.view.View.OnClickListener" />
 
         <variable
-            name="restaurantFeed"
+            name="restaurant"
             type="com.example.takeaway.data.model.RestaurantFeed" />
     </data>
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/restaurant_feed_card"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="12dp"
-        android:onClick="@{clickListener}"
-        app:cardCornerRadius="8dp"
-        app:cardPreventCornerOverlap="true"
-        app:cardUseCompatPadding="true">
+        android:onClick="@{onItemClickListener}">
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/restaurant_name"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:gravity="center_horizontal"
+            android:singleLine="true"
+            android:text="@{restaurant.name}"
+            android:textColor="@android:color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Pizza pizza" />
 
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:singleLine="true"
-                android:text="@{restaurantFeed.name}"
-                android:textColor="@android:color/black"
-                tools:text="foo" />
-        </LinearLayout>
+        <TextView
+            android:id="@+id/restaurant_status"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:singleLine="true"
+            android:text="@{restaurant.status}"
+            android:textColor="@android:color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/restaurant_name"
+            tools:text="Open" />
 
-    </androidx.cardview.widget.CardView>
+        <TextView
+            android:id="@+id/restaurant_min_cost"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:singleLine="true"
+            android:text="@{`` + restaurant.sortingValues.minCost}"
+            android:textColor="@android:color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/restaurant_status"
+            tools:text="1000" />
+
+        <ImageView
+            android:id="@+id/restaurant_favorite"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginEnd="16dp"
+            app:bindFavorite="@{restaurant.favorite}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/outline_favorite_24" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>
