@@ -1,8 +1,13 @@
 <resources>
     <string name="app_name">TakeAway</string>
+    <string name="favorite">Favorite</string>
+    <string name="add_favorite">Restaurant added to favorites</string>
+    <string name="remove_favorite">Restaurant removed from favorites</string>
 
-    <string-array name="sort_array">
+
+    <string-array name="sort_array_label">
         <item>Best match</item>
+        <item>Status</item>
         <item>Newest</item>
         <item>Reviews</item>
         <item>Distance</item>
@@ -10,5 +15,16 @@
         <item>Product price</item>
         <item>Delivery costs</item>
         <item>Min. order amount</item>
+    </string-array>
+    <string-array name="sort_array_table_name">
+        <item>sorting_bestMatch</item>
+        <item>status</item>
+        <item>sorting_newest</item>
+        <item>sorting_ratingAverage</item>
+        <item>sorting_distance</item>
+        <item>sorting_popularity</item>
+        <item>sorting_averageProductPrice</item>
+        <item>sorting_deliveryCosts</item>
+        <item>sorting_minCost</item>
     </string-array>
 </resources>

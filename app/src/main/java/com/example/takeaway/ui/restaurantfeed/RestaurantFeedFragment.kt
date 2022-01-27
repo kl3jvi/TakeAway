@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -47,6 +48,16 @@ class RestaurantFeedFragment : Fragment() {
                 }
 
                 launch {
+                    restaurantFeedViewModel.isFavorite.collect {
+                        it?.let {
+                            val message: String =
+                                if (it) getString(R.string.add_favorite) else getString(R.string.remove_favorite)
+                            Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+                            restaurantFeedViewModel.onToastShown()
+                        }
+                    }
+                }
+                launch {
                     restaurantFeedViewModel.error.collect {
                         it?.let {
                             Snackbar.make(binding.root, it, Snackbar.LENGTH_LONG).show()
@@ -67,10 +78,10 @@ class RestaurantFeedFragment : Fragment() {
 
     private fun initSortAdapter() {
         val spinner = binding.feedSortSpinner
-
+        val sortArray = resources.getStringArray(R.array.sort_array_table_name)
         ArrayAdapter.createFromResource(
             requireContext(),
-            R.array.sort_array,
+            R.array.sort_array_label,
             android.R.layout.simple_spinner_dropdown_item
         ).also {
             it.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -79,19 +90,10 @@ class RestaurantFeedFragment : Fragment() {
 
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                when (p2) {
-                    0 -> {
-                        restaurantFeedViewModel.sortByBestMatch()
-                    }
-                    7 -> {
-                        restaurantFeedViewModel.sortByMinCost()
-                    }
-                }
+                restaurantFeedViewModel.getSortedRestaurants(sortArray[p2])
             }
 
-            override fun onNothingSelected(p0: AdapterView<*>?) {
-
-            }
+            override fun onNothingSelected(p0: AdapterView<*>?) {}
         }
 
     }

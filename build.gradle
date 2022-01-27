@@ -1,12 +1,12 @@
 buildscript {
     ext {
-        kotlinVersion = '1.6.0'
-        gradleVersion = '4.1.2'
+        kotlinVersion = '1.6.10'
+        gradleVersion = '7.0.0'
 
         appCompatVersion = '1.4.1'
-        materialVersion = '1.4.0'
+        materialVersion = '1.5.0'
         fragmentVersion = '1.4.0'
-        constraintVersion = '2.1.2'
+        constraintVersion = '2.1.3'
         navigationVersion = '2.3.5'
         hiltVersion = '2.37'
         roomVersion = "2.4.1"
@@ -17,10 +17,12 @@ buildscript {
         coroutinesVersion = "1.6.0"
         glideVersion = '4.12.0'
 
-        androidXTestCoreVersion = '1.4.0'
+        androidXTestVersion = '1.4.0'
         androidXTestExtKotlinRunnerVersion = '1.1.3'
+        espressoVersion = '3.4.0'
         junit = '4.13.2'
         googleTruth = '1.1.3'
+        coreTestingVersion = '2.1.0'
         mockwebserver = '4.9.1'
         mockito = '3.10.0'
         mockitoAll = "1.10.19"

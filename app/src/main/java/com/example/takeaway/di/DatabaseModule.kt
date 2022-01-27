@@ -1,4 +1,4 @@
-package com.example.takeaway.data.di
+package com.example.takeaway.di
 
 import android.app.Application
 import com.example.takeaway.data.db.AppDatabase

@@ -10,30 +10,154 @@
             type="com.example.takeaway.data.model.RestaurantFeed" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/restaurantName"
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/restaurant_details_toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="@{restaurantDetails.name}"
-            android:textColor="@android:color/black"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="PIZZA" />
-
-        <TextView
-            android:id="@+id/restaurant_min_cost"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Status"
-            android:textColor="@android:color/black"
+            android:background="@color/orange"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/restaurantName" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:navigationIcon="@drawable/outline_arrow_back_24"
+            app:title="@string/app_name"
+            app:titleTextColor="@color/white" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/margin_normal">
+
+            <ImageView
+                android:id="@+id/restaurant_details_favorite"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                app:bindFavorite="@{restaurantDetails.favorite}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/outline_favorite_24"
+                android:contentDescription="@string/favorite" />
+
+            <TextView
+                android:id="@+id/restaurant_details_rate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-medium"
+                android:gravity="center"
+                android:paddingTop="@dimen/margin_extra_small"
+                android:text="@{`` + restaurantDetails.sortingValues.ratingAverage}"
+                android:textColor="@color/orange"
+                android:textSize="16sp"
+                app:drawableStartCompat="@drawable/outline_star_rate_24"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <TextView
+                android:id="@+id/restaurant_details_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-medium"
+                android:text="@{restaurantDetails.name}"
+                android:textColor="@android:color/black"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@+id/restaurant_details_favorite"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/restaurant_details_favorite"
+                tools:text="Pizza pizza" />
+
+            <TextView
+                android:id="@+id/restaurant_details_status"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_extra_small"
+                android:text="@{`Status: `+ restaurantDetails.status}"
+                android:textColor="@android:color/black"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/restaurant_details_favorite"
+                tools:text="Status: open" />
+
+            <TextView
+                android:id="@+id/restaurant_details_min_cost"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_extra_small"
+                android:text="@{`Min.order $`+ restaurantDetails.sortingValues.minCost}"
+                android:textColor="@android:color/black"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/restaurant_details_status"
+                tools:text="Min.order $1000" />
+
+            <TextView
+                android:id="@+id/restaurant_details_delivery_cost"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_extra_small"
+                android:text="@{`Delivery Cost: ` + restaurantDetails.sortingValues.deliveryCosts}"
+                android:textColor="@android:color/black"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/restaurant_details_min_cost"
+                tools:text="Delivery cost: $1000" />
+
+            <TextView
+                android:id="@+id/restaurant_details_average_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_extra_small"
+                android:text="@{`Average price: $` + restaurantDetails.sortingValues.averageProductPrice}"
+                android:textColor="@android:color/black"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/restaurant_details_delivery_cost"
+                tools:text="Average product price: $1500" />
+
+            <TextView
+                android:id="@+id/restaurant_details_popularity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_extra_small"
+                android:text="@{`Popularity: ` + restaurantDetails.sortingValues.popularity}"
+                android:textColor="@android:color/black"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/restaurant_details_average_price"
+                tools:text="Popularity: 9.0" />
+
+            <TextView
+                android:id="@+id/restaurant_details_distance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_extra_small"
+                android:text="@{`Distance: ` + restaurantDetails.sortingValues.distance}"
+                android:textColor="@android:color/black"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/restaurant_details_popularity"
+                tools:text="Distance: 2453" />
+
+            <TextView
+                android:id="@+id/restaurant_details_best_match"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_extra_small"
+                android:text="@{`Best match: ` + restaurantDetails.sortingValues.bestMatch}"
+                android:textColor="@android:color/black"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/restaurant_details_distance"
+                tools:text="Best match: 306.0" />
+
+            <TextView
+                android:id="@+id/restaurant_details_newest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_extra_small"
+                android:text="@{`Newest: ` + restaurantDetails.sortingValues.newest}"
+                android:textColor="@android:color/black"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/restaurant_details_best_match"
+                tools:text="Newest: 100" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
 </layout>

@@ -8,21 +8,22 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <Toolbar
+        <androidx.appcompat.widget.Toolbar
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/orange"
-            android:title="@string/app_name"
+            app:title="@string/app_name"
             app:titleTextColor="@color/white">
 
-            <Spinner
+            <androidx.appcompat.widget.AppCompatSpinner
                 android:id="@+id/feed_sort_spinner"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/toolbar_spinner_height"
+                android:layout_height="@dimen/toolbar_spinner_height"
                 android:layout_gravity="end"
-                android:backgroundTint="@color/white"
-                android:spinnerMode="dropdown" />
-        </Toolbar>
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/outline_sort_24"
+                android:spinnerMode="dialog" />
+        </androidx.appcompat.widget.Toolbar>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/restaurant_feed_recycler"

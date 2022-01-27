@@ -25,7 +25,7 @@ class RestaurantFeedAdapter(private val viewModel: RestaurantFeedViewModel) :
     override fun onBindViewHolder(holder: RestaurantFeedViewHolder, position: Int) {
         val restaurant = getItem(position)
         holder.apply {
-            bind(onItemClickListener(restaurant.name), restaurant, viewModel)
+            bind(onItemClickListener(restaurant.id), restaurant, viewModel)
         }
     }
 
@@ -54,11 +54,11 @@ class RestaurantFeedAdapter(private val viewModel: RestaurantFeedViewModel) :
         }
     }
 
-    private fun onItemClickListener(name: String): View.OnClickListener {
+    private fun onItemClickListener(restaurantId: Int): View.OnClickListener {
         return View.OnClickListener {
             val direction =
                 RestaurantFeedFragmentDirections.actionRestaurantFeedFragmentToRestaurantDetailsFragment(
-                    restaurantName = name
+                    restaurantId = restaurantId
                 )
             it.findNavController().navigate(direction)
         }

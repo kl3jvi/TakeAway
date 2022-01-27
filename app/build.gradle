@@ -19,6 +19,10 @@ android {
     dataBinding {
         enabled = true
     }
+    sourceSets {
+        androidTest.java.srcDirs += "src/sharedTest/java"
+        test.java.srcDirs += "src/sharedTest/java"
+    }
     buildTypes {
         release {
             minifyEnabled false
@@ -31,6 +35,10 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
+    }
+
+    defaultConfig {
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 }
 dependencies {
@@ -67,12 +75,17 @@ dependencies {
     testImplementation "junit:junit:$junit"
     testImplementation "com.squareup.okhttp3:mockwebserver:$mockwebserver"
     testImplementation "org.mockito:mockito-core:$mockito"
+    testImplementation "org.mockito:mockito-inline:$mockito"
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion"
     testImplementation "com.google.truth:truth:$googleTruth"
-    testImplementation "androidx.test:core-ktx:$androidXTestCoreVersion"
+    testImplementation "androidx.test:core-ktx:$androidXTestVersion"
+    testImplementation "androidx.arch.core:core-testing:$coreTestingVersion"
 
-    androidTestImplementation "junit:junit:$junit"
+    androidTestImplementation "androidx.test:runner:$androidXTestVersion"
+    androidTestImplementation "androidx.test:rules:$androidXTestVersion"
     androidTestImplementation "androidx.test.ext:junit-ktx:$androidXTestExtKotlinRunnerVersion"
     androidTestImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion"
     androidTestImplementation "com.google.truth:truth:$googleTruth"
+    androidTestImplementation "androidx.arch.core:core-testing:$coreTestingVersion"
+
 }
